@@ -13,8 +13,7 @@
       --card: #121217;
       --card-hover: #181822;
       --accent: #f15a24;
-      --accent-hover: #e04b16;
-      --accent-glow: rgba(241, 90, 36, 0.35);
+      --accent-glow: rgba(241, 90, 36, 0.4);
       --chrome: #e4e4e7;
       --chrome-dim: #71717a;
       --border: rgba(255, 255, 255, 0.08);
@@ -95,7 +94,7 @@
     }
     .hero {
       position: relative;
-      padding: 90px 24px 60px;
+      padding: 80px 24px 50px;
       text-align: center;
       background: radial-gradient(circle at 50% 15%, rgba(241, 90, 36, 0.16) 0%, transparent 65%);
     }
@@ -134,7 +133,7 @@
       border: 2px solid var(--accent);
       padding: 16px 36px;
       border-radius: 16px;
-      margin-bottom: 48px;
+      margin-bottom: 40px;
       box-shadow: 0 12px 35px var(--accent-glow);
     }
     .price-pill .amount {
@@ -167,33 +166,33 @@
       text-align: right;
     }
     .visual-showcase {
-      max-width: 1040px;
-      margin: 0 auto 80px;
+      max-width: 1100px;
+      margin: 0 auto 70px;
       background: var(--card);
       border: 1px solid var(--border);
       border-radius: 20px;
       padding: 24px;
       box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7);
     }
-    .video-hero {
+    .video-hero-wrapper {
       position: relative;
-      height: 480px;
-      border-radius: 14px;
+      border-radius: 16px;
       overflow: hidden;
-      background: linear-gradient(135deg, #1b1b24, #0b0b0e);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      border: 1px solid rgba(255, 255, 255, 0.05);
-      text-align: center;
-      padding: 24px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: #000;
+    }
+    .video-hero-wrapper video {
+      width: 100%;
+      height: auto;
+      max-height: 560px;
+      display: block;
+      object-fit: cover;
     }
     .video-badge {
       position: absolute;
-      top: 20px;
-      left: 20px;
-      background: rgba(0, 0, 0, 0.75);
+      top: 16px;
+      left: 16px;
+      background: rgba(0, 0, 0, 0.8);
       backdrop-filter: blur(8px);
       padding: 8px 16px;
       border-radius: 8px;
@@ -202,12 +201,69 @@
       display: flex;
       align-items: center;
       gap: 8px;
+      z-index: 10;
     }
     .video-badge .dot {
       width: 8px;
       height: 8px;
       background: #ef4444;
       border-radius: 50%;
+      animation: pulse 1.5s infinite;
+    }
+    @keyframes pulse {
+      0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; }
+    }
+    .gallery-grid {
+      max-width: 1100px;
+      margin: 0 auto 80px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(480px, 1fr));
+      gap: 28px;
+      padding: 0 20px;
+    }
+    @media (max-width: 768px) {
+      .gallery-grid { grid-template-columns: 1fr; }
+    }
+    .gallery-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+    .gallery-card:hover {
+      border-color: rgba(241, 90, 36, 0.5);
+      transform: translateY(-4px);
+    }
+    .gallery-img-wrap {
+      position: relative;
+      height: 340px;
+      overflow: hidden;
+      background: #0b0b0e;
+    }
+    .gallery-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.4s ease;
+    }
+    .gallery-card:hover .gallery-img-wrap img {
+      transform: scale(1.04);
+    }
+    .gallery-info {
+      padding: 24px;
+    }
+    .gallery-info h3 {
+      font-family: var(--font-title);
+      font-size: 20px;
+      color: #fff;
+      margin-bottom: 8px;
+    }
+    .gallery-info p {
+      font-size: 14px;
+      color: #a1a1aa;
+      line-height: 1.5;
     }
     .section-heading {
       font-family: var(--font-title);
@@ -473,15 +529,43 @@
     </div>
   </section>
 
+  <!-- Video Showcase Player -->
   <div class="visual-showcase">
-    <div class="video-hero">
+    <div class="video-hero-wrapper">
       <div class="video-badge">
         <span class="dot"></span>
-        <span id="vid-badge-txt">TOURNÉ DANS LES CALANQUES DE MARSEILLE (1080p HD)</span>
+        <span id="vid-badge-txt">EN ACTION DANS LES CALANQUES DE MARSEILLE (1080p HD)</span>
       </div>
-      <div style="font-size: 54px; margin-bottom: 12px;">🚵‍♂️ 🌊</div>
-      <h3 style="font-family:var(--font-title); font-size:24px; color:#fff;" id="vid-heading">Performance Réelle sur Terrain Rugueux</h3>
-      <p style="color:#a1a1aa; max-width:620px; font-size:14px; margin-top:8px;" id="vid-caption">Découvrez le vélo en action sur les sentiers rocheux des Calanques de Marseille : puissance électrique réactive, franchissement facile et stabilité optimale.</p>
+      <video controls autoplay muted loop playsinline poster="img/velo-apex-900.jpg">
+        <source src="https://backend.composio.dev/api/v3/sl/0UWWwE4RhX" type="video/mp4">
+        Votre navigateur ne supporte pas la balise vidéo.
+      </video>
+    </div>
+    <div style="text-align:center; padding: 20px 10px 10px;">
+      <h3 style="font-family:var(--font-title); font-size:22px; color:#fff;" id="vid-heading">Performance Réelle sur les Crêtes Méditerranéennes</h3>
+      <p style="color:#a1a1aa; font-size:14px; max-width:700px; margin:8px auto 0;" id="vid-caption">Vidéo cinématique capturée sur les sentiers rocheux des Calanques : assistance électrique silencieuse, couple instantané de 85 Nm et franchissement haute stabilité.</p>
+    </div>
+  </div>
+
+  <!-- Real Photos Gallery -->
+  <div class="gallery-grid">
+    <div class="gallery-card">
+      <div class="gallery-img-wrap">
+        <img src="img/velo-apex-900.jpg" alt="VTT Électrique APEX E-TRAIL 900 noir mat et chrome" loading="lazy">
+      </div>
+      <div class="gallery-info">
+        <h3 id="g1-title">Design Châssis Noir Mat & Chrome</h3>
+        <p id="g1-desc">Cadre en aluminium 6061 recyclable de grade aérospatial avec intégration furtive de la batterie LG 1200Wh. Peinture thermolaquée anti-rayures et détails chrome miroir.</p>
+      </div>
+    </div>
+    <div class="gallery-card">
+      <div class="gallery-img-wrap">
+        <img src="img/guidon-carplay.jpg" alt="Cockpit guidon CarPlay avec écran tactile GPS et poignées chauffantes" loading="lazy">
+      </div>
+      <div class="gallery-info">
+        <h3 id="g2-title">Cockpit CarPlay & Poignées Chauffantes</h3>
+        <p id="g2-desc">Écran tactile OLED 5 pouces étanche avec cartographie GPS intégrée, synchronisation smartphone, et poignées chauffantes thermo-régulées à 3 intensités au guidon.</p>
+      </div>
     </div>
   </div>
 
@@ -579,9 +663,13 @@
         sub: 'Ingénierie sportive et durable : cadre noir mat aux finitions chrome poli, autonomie record de 180 km, smart cockpit CarPlay avec GPS et poignées chauffantes.',
         paypal: 'Paiement en <strong>12x sans frais via PayPal</strong><br>Soit seulement <strong>41,58 € / mois</strong>',
         order: 'Commander 499 €',
-        vidBadge: 'TOURNÉ DANS LES CALANQUES DE MARSEILLE (1080p HD)',
-        vidHead: 'Performance Réelle sur Terrain Rugueux',
-        vidCap: 'Découvrez le vélo en action sur les sentiers rocheux des Calanques de Marseille : puissance électrique réactive, franchissement facile et stabilité optimale.',
+        vidBadge: 'EN ACTION DANS LES CALANQUES DE MARSEILLE (1080p HD)',
+        vidHead: 'Performance Réelle sur les Crêtes Méditerranéennes',
+        vidCap: 'Vidéo cinématique capturée sur les sentiers rocheux des Calanques : assistance électrique silencieuse, couple instantané de 85 Nm et franchissement haute stabilité.',
+        g1Title: 'Design Châssis Noir Mat & Chrome',
+        g1Desc: 'Cadre en aluminium 6061 recyclable de grade aérospatial avec intégration furtive de la batterie LG 1200Wh. Peinture thermolaquée anti-rayures et détails chrome miroir.',
+        g2Title: 'Cockpit CarPlay & Poignées Chauffantes',
+        g2Desc: 'Écran tactile OLED 5 pouces étanche avec cartographie GPS intégrée, synchronisation smartphone, et poignées chauffantes thermo-régulées à 3 intensités au guidon.',
         featHead: 'L'Excellence Technologique à Chaque Coup de Pédale',
         chatLbl: 'Discuter avec Yoni',
         welcome: 'Bonjour ! Je suis Yoni, le conseiller officiel de l'APEX E-Trail 900. Posez-moi vos questions sur l'autonomie de 180 km, le cockpit CarPlay, les poignées chauffantes ou le paiement en 12x PayPal !'
@@ -594,9 +682,13 @@
         sub: 'Sporty and sustainable engineering: matte black frame with polished chrome accents, record 180 km range, CarPlay smart cockpit with GPS and heated grips.',
         paypal: 'Pay in <strong>12x interest-free via PayPal</strong><br>Just <strong>€41.58 / month</strong>',
         order: 'Order Now €499',
-        vidBadge: 'FILMED IN MARSEILLE CALANQUES (1080p HD)',
-        vidHead: 'Real World All-Terrain Performance',
-        vidCap: 'Watch the bike tackle the rocky trails of the Marseille Calanques: instant electric torque, effortless climbing and total stability.',
+        vidBadge: 'IN ACTION IN THE MARSEILLE CALANQUES (1080p HD)',
+        vidHead: 'Real World Performance on Mediterranean Ridges',
+        vidCap: 'Cinematic video shot on the rocky trails of the Calanques: silent electric assistance, instant 85 Nm torque and rock-solid stability.',
+        g1Title: 'Matte Black & Chrome Frame Design',
+        g1Desc: 'Recyclable aerospace-grade 6061 aluminum frame with sleek battery integration. Scratch-resistant matte coating with mirror chrome accents.',
+        g2Title: 'CarPlay Cockpit & Heated Grips',
+        g2Desc: 'Waterproof 5-inch OLED touchscreen with built-in GPS mapping, smartphone sync, and 3-level thermo-regulated heated grips on the handlebar.',
         featHead: 'Cutting-Edge Technology on Every Ride',
         chatLbl: 'Chat with Yoni',
         welcome: 'Hello! I am Yoni, the official advisor for the APEX E-Trail 900. Ask me anything about the 180 km range, CarPlay cockpit, heated grips, or 12x PayPal financing!'
@@ -609,9 +701,13 @@
         sub: 'Ingeniería deportiva y sostenible: cuadro negro mate con detalles en cromo pulido, autonomía récord de 180 km, cockpit CarPlay con GPS y puños calefactables.',
         paypal: 'Pago en <strong>12 cuotas sin intereses vía PayPal</strong><br>Solo <strong>41,58 € / mes</strong>',
         order: 'Comprar 499 €',
-        vidBadge: 'RODADO EN LAS CALANQUES DE MARSELLA (1080p HD)',
-        vidHead: 'Rendimiento Real en Terreno Difícil',
-        vidCap: 'Descubre la bicicleta en acción por los senderos rocosos de Marsella: par motor instantáneo, subidas fáciles y control total.',
+        vidBadge: 'EN ACCIÓN EN LAS CALANQUES DE MARSELLA (1080p HD)',
+        vidHead: 'Rendimiento Real en los Acantilados Mediterráneos',
+        vidCap: 'Vídeo cinematográfico en los senderos rocosos de Marsella: asistencia silenciosa, par de 85 Nm y estabilidad absoluta.',
+        g1Title: 'Diseño Chasis Negro Mate y Cromo',
+        g1Desc: 'Cuadro de aluminio aeroespacial 6061 reciclable con integración limpia de la batería. Acabado mate antirrayaduras y detalles en cromo.',
+        g2Title: 'Cockpit CarPlay y Puños Calefactables',
+        g2Desc: 'Pantalla OLED táctil de 5 pulgadas con GPS integrado, conexión móvil y puños con 3 niveles de temperatura en el manillar.',
         featHead: 'Tecnología de Vanguardia en Cada Pedaleo',
         chatLbl: 'Hablar con Yoni',
         welcome: '¡Hola! Soy Yoni, el asesor oficial de la APEX E-Trail 900. ¿Tienes dudas sobre la autonomía de 180 km, la pantalla CarPlay o el pago en 12 plazos?'
@@ -624,9 +720,13 @@
         sub: 'הנדסה ספורטיבית ואקולוגית: שלדת שחור מט עם גימור כרום, טווח סוללה שובר שיאים של 180 ק״מ, קוקפיט CarPlay עם GPS מובנה וידיות מחוממות.',
         paypal: 'תשלום ב-<strong>12 תשלומים ללא ריבית דרך PayPal</strong><br>רק <strong>41.58 € לחודש</strong>',
         order: 'הזמן עכשיו 499 €',
-        vidBadge: 'צולם במצוקי מרסיי (1080p HD)',
-        vidHead: 'ביצועי שטח אמיתיים בתנאי שטח קשים',
-        vidCap: 'צפו באופניים בפעולה בשבילי המצוקים של מרסיי: כוח חשמלי מיידי, מעבר מכשולים חלק ויציבות מוחלטת.',
+        vidBadge: 'בפעולה במצוקי מרסיי (1080p HD)',
+        vidHead: 'ביצועי שטח אמיתיים על רכסי הים התיכון',
+        vidCap: 'סרטון קולנועי שצולם בשבילי הסלעים של המצוקים: מנוע שקט, מומנט מיידי של 85 Nm ויציבות שטח מקסימלית.',
+        g1Title: 'עיצוב שלדת שחור מט וכרום',
+        g1Desc: 'שלדת אלומיניום תעופתי 6061 למחזור עם שילוב סוללה אלגנטי וצבע שחור מט עמיד לשריטות עם עיטורי כרום מלוטש.',
+        g2Title: 'קוקפיט CarPlay וידיות מחוממות',
+        g2Desc: 'מסך מגע OLED בגודל 5 אינץ' עמיד במים עם ניווט GPS מובנה, סנכרון לסמארטפון וידיות מחוממות עם 3 רמות חום בכידון.',
         featHead: 'מצוינות טכנולוגית בכל דיווש',
         chatLbl: 'שוחח עם יוני',
         welcome: 'שלום! אני יוני, היועץ הרשמי של APEX E-Trail 900. שאל אותי כל שאלה על טווח 180 ק״מ, מסך ה-CarPlay, הידיות המחוממות או תשלום ב-12 תשלומים!'
@@ -639,9 +739,13 @@
         sub: 'هندسة رياضية ومستدامة: هيكل أسود غير لامع مع لمسات كروم مصقولة، مدى قيادة قياسي 180 كم، قمرة قيادة ذكية CarPlay مع نظام GPS ومقابض تدفئة.',
         paypal: 'الدفع على <strong>12 قسطاً بدون فوائد عبر PayPal</strong><br>فقط <strong>41.58 € شهرياً</strong>',
         order: 'اطلب الآن 499 €',
-        vidBadge: 'تم التصوير في كالانك مرسيليا (1080p HD)',
-        vidHead: 'أداء حقيقي على أصعب التضاريس',
-        vidCap: 'شاهد الدراجة وهي تتحدى مسارات مرسيليا الصخرية: عزم كهربائي فوري، صعود سهل وثبات تام.',
+        vidBadge: 'أثناء القيادة في كالانك مرسيليا (1080p HD)',
+        vidHead: 'أداء حقيقي على قمم البحر الأبيض المتوسط',
+        vidCap: 'فيديو سينمائي تم تصويره على مسارات مرسيليا الصخرية: مساعدة كهربائية صامتة، عزم دوران 85 نيوتن متر وثبات فائق.',
+        g1Title: 'تصميم هيكل أسود غير لامع مع كروم',
+        g1Desc: 'هيكل ألومنيوم 6061 مخصص للطيران قابل لإعادة التدوير مع دمج متناسق للبطارية وطلاء مقاوم للخدوش.',
+        g2Title: 'قمرة قيادة CarPlay ومقابض تدفئة',
+        g2Desc: 'شاشة لمס OLED مقاس 5 بوصات مقاومة للماء مع نظام GPS ومزامنة مع الهاتف الذكي ومقابض تدفئة بثلاثة مستويات.',
         featHead: 'التميز التكنولوجي مع كل حركة دواسة',
         chatLbl: 'تحدث مع يوني',
         welcome: 'مرحباً! أنا يوني، المستشار الرسمي لدراجة APEX E-Trail 900. تفضل بطرح أسئلتك حول مدى 180 كم، أو شاشة CarPlay أو التقسيط على 12 شهراً!'
@@ -661,6 +765,10 @@
       document.getElementById('vid-badge-txt').textContent = cur.vidBadge;
       document.getElementById('vid-heading').textContent = cur.vidHead;
       document.getElementById('vid-caption').textContent = cur.vidCap;
+      document.getElementById('g1-title').textContent = cur.g1Title;
+      document.getElementById('g1-desc').textContent = cur.g1Desc;
+      document.getElementById('g2-title').textContent = cur.g2Title;
+      document.getElementById('g2-desc').textContent = cur.g2Desc;
       document.getElementById('feat-heading').textContent = cur.featHead;
       document.getElementById('chat-toggle-lbl').textContent = cur.chatLbl;
       document.getElementById('bot-hello').textContent = cur.welcome;
