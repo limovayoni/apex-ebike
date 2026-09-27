@@ -1,1 +1,713 @@
-��-
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>APEX E-TRAIL 900 — VTT Électrique Tout-Terrain Haute Performance</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #09090b;
+      --card: #121217;
+      --card-hover: #181822;
+      --accent: #f15a24;
+      --accent-hover: #e04b16;
+      --accent-glow: rgba(241, 90, 36, 0.35);
+      --chrome: #e4e4e7;
+      --chrome-dim: #71717a;
+      --border: rgba(255, 255, 255, 0.08);
+      --font-body: 'Plus Jakarta Sans', sans-serif;
+      --font-title: 'Space Grotesk', sans-serif;
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    [dir="rtl"] { text-align: right; }
+    body {
+      background: var(--bg);
+      color: #f4f4f5;
+      font-family: var(--font-body);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(20px);
+      background: rgba(9, 9, 11, 0.9);
+      border-bottom: 1px solid var(--border);
+      padding: 16px 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .logo {
+      font-family: var(--font-title);
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .logo span.badge {
+      font-size: 11px;
+      background: linear-gradient(135deg, var(--accent), #dfbf22);
+      color: #fff;
+      padding: 3px 8px;
+      border-radius: 999px;
+      font-weight: 700;
+    }
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    select.lang-picker {
+      background: #181822;
+      color: #fff;
+      border: 1px solid var(--border);
+      padding: 8px 14px;
+      border-radius: 8px;
+      font-size: 13px;
+      cursor: pointer;
+      outline: none;
+    }
+    .btn-main {
+      background: linear-gradient(135deg, var(--accent), #e69c23);
+      color: #fff;
+      border: none;
+      padding: 10px 24px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 14px;
+      cursor: pointer;
+      text-decoration: none;
+      box-shadow: 0 4px 16px var(--accent-glow);
+      transition: all 0.2s ease;
+      display: inline-block;
+    }
+    .btn-main:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 22px rgba(241, 90, 36, 0.55);
+    }
+    .hero {
+      position: relative;
+      padding: 90px 24px 60px;
+      text-align: center;
+      background: radial-gradient(circle at 50% 15%, rgba(241, 90, 36, 0.16) 0%, transparent 65%);
+    }
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      padding: 6px 18px;
+      border-radius: 999px;
+      font-size: 13px;
+      color: var(--chrome);
+      margin-bottom: 24px;
+    }
+    .hero h1 {
+      font-family: var(--font-title);
+      font-size: clamp(34px, 5.5vw, 64px);
+      font-weight: 800;
+      line-height: 1.1;
+      margin-bottom: 20px;
+      color: #ffffff;
+      letter-spacing: -1px;
+    }
+    .hero p.sub {
+      font-size: clamp(16px, 2vw, 19px);
+      color: #a1a1aa;
+      max-width: 760px;
+      margin: 0 auto 36px;
+    }
+    .price-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 20px;
+      background: #14141a;
+      border: 2px solid var(--accent);
+      padding: 16px 36px;
+      border-radius: 16px;
+      margin-bottom: 48px;
+      box-shadow: 0 12px 35px var(--accent-glow);
+    }
+    .price-pill .amount {
+      font-size: 38px;
+      font-weight: 800;
+      color: #fff;
+      font-family: var(--font-title);
+    }
+    .price-pill .old {
+      font-size: 16px;
+      color: var(--chrome-dim);
+      text-decoration: line-through;
+      margin-left: 6px;
+      font-weight: normal;
+    }
+    .price-pill .paypal-info {
+      text-align: left;
+      border-left: 1px solid var(--border);
+      padding-left: 20px;
+      font-size: 13px;
+      color: #38bdf8;
+      font-weight: 600;
+      line-height: 1.4;
+    }
+    [dir="rtl"] .price-pill .paypal-info {
+      border-left: none;
+      border-right: 1px solid var(--border);
+      padding-left: 0;
+      padding-right: 20px;
+      text-align: right;
+    }
+    .visual-showcase {
+      max-width: 1040px;
+      margin: 0 auto 80px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 24px;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7);
+    }
+    .video-hero {
+      position: relative;
+      height: 480px;
+      border-radius: 14px;
+      overflow: hidden;
+      background: linear-gradient(135deg, #1b1b24, #0b0b0e);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      text-align: center;
+      padding: 24px;
+    }
+    .video-badge {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(8px);
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .video-badge .dot {
+      width: 8px;
+      height: 8px;
+      background: #ef4444;
+      border-radius: 50%;
+    }
+    .section-heading {
+      font-family: var(--font-title);
+      font-size: 32px;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 44px;
+      color: #fff;
+    }
+    .features-grid {
+      max-width: 1100px;
+      margin: 0 auto 80px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 24px;
+      padding: 0 20px;
+    }
+    .feature-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 30px;
+      transition: all 0.3s ease;
+    }
+    .feature-card:hover {
+      background: var(--card-hover);
+      border-color: rgba(241, 90, 36, 0.4);
+      transform: translateY(-4px);
+    }
+    .feature-card .icon {
+      font-size: 32px;
+      margin-bottom: 16px;
+    }
+    .feature-card h3 {
+      font-size: 20px;
+      color: #fff;
+      margin-bottom: 10px;
+      font-family: var(--font-title);
+    }
+    .feature-card p {
+      color: #a1a1aa;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+    .specs-box {
+      max-width: 900px;
+      margin: 0 auto 90px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 36px;
+    }
+    .specs-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    .specs-table tr {
+      border-bottom: 1px solid var(--border);
+    }
+    .specs-table td {
+      padding: 14px 16px;
+      font-size: 14px;
+    }
+    .specs-table td.col-name {
+      color: #a1a1aa;
+      font-weight: 600;
+      width: 36%;
+    }
+    .specs-table td.col-val {
+      color: #fff;
+      font-weight: 500;
+    }
+    .chatbot-toggle {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: linear-gradient(135deg, var(--accent), #e69c23);
+      color: #fff;
+      border: none;
+      padding: 14px 22px;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 14px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 8px 25px rgba(241, 90, 36, 0.5);
+      z-index: 1000;
+    }
+    .chatbot-window {
+      position: fixed;
+      bottom: 86px;
+      right: 24px;
+      width: 360px;
+      height: 520px;
+      background: #14141a;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.85);
+      z-index: 1001;
+      display: none;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    .chat-header {
+      background: #1c1c24;
+      padding: 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border);
+    }
+    .chat-header-info {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .chat-avatar {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), #dfbf22);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      color: #fff;
+      position: relative;
+    }
+    .chat-avatar::after {
+      content:'';
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: 10px;
+      height: 10px;
+      background: #10b981;
+      border-radius: 50%;
+      border: 2px solid #1c1c24;
+    }
+    .chat-header-info h4 { font-size: 15px; color: #fff; }
+    .chat-header-info p { font-size: 11px; color: #10b981; }
+    .chat-close { background: none; border: none; color: #a1a1aa; font-size: 22px; cursor: pointer; }
+    .chat-msgs {
+      flex: 1;
+      padding: 16px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      font-size: 13px;
+    }
+    .bubble {
+      padding: 10px 14px;
+      border-radius: 12px;
+      max-width: 82%;
+      line-height: 1.4;
+    }
+    .bubble.bot {
+      background: #22222d;
+      color: #e4e4e7;
+      align-self: flex-start;
+      border-bottom-left-radius: 2px;
+    }
+    .bubble.user {
+      background: var(--accent);
+      color: #fff;
+      align-self: flex-end;
+      border-bottom-right-radius: 2px;
+    }
+    .quick-chips {
+      padding: 8px 12px;
+      background: #1c1c24;
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      border-top: 1px solid var(--border);
+    }
+    .chip {
+      background: #2a2a38;
+      color: #e4e4e7;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 11px;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    .chip:hover {
+      background: var(--accent);
+      color: #fff;
+    }
+    .chat-bar {
+      display: flex;
+      padding: 12px;
+      background: #14141a;
+      border-top: 1px solid var(--border);
+      gap: 8px;
+    }
+    .chat-bar input {
+      flex: 1;
+      background: #22222d;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 10px 12px;
+      color: #fff;
+      font-size: 13px;
+      outline: none;
+    }
+    .chat-bar button {
+      background: var(--accent);
+      border: none;
+      color: #fff;
+      padding: 0 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 700;
+    }
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 36px 20px;
+      text-align: center;
+      font-size: 13px;
+      color: #71717a;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo">
+      APEX <span>E-TRAIL 900</span>
+      <span class="badge" id="lbl-badge">CALANQUES ÉDITION</span>
+    </div>
+    <div class="nav-actions">
+      <select class="lang-picker" id="langPicker" onchange="applyLanguage(this.value)">
+        <option value="fr">🇫🇷 Français</option>
+        <option value="en">🇬🇧 English</option>
+        <option value="es">🇪🇸 Español</option>
+        <option value="he">🇮🇱 עברית</option>
+        <option value="ar">🇦🇪 العربية</option>
+      </select>
+      <button class="btn-main" onclick="document.getElementById('pricing-anchor').scrollIntoView({behavior:'smooth'})" id="btn-order">Commander 499 €</button>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-tag" id="hero-tag">⚡ Vélo Électrique Tout-Terrain Haute Performance</div>
+    <h1 id="hero-title">Dominez chaque sentier.<br>Sans compromis.</h1>
+    <p class="sub" id="hero-sub">Ingénierie sportive et durable : cadre noir mat aux finitions chrome poli, autonomie record de 180 km, smart cockpit CarPlay avec GPS et poignées chauffantes.</p>
+
+    <div class="price-pill" id="pricing-anchor">
+      <div>
+        <span class="amount">499 €</span>
+        <span class="old">1 299 €</span>
+      </div>
+      <div class="paypal-info" id="paypal-text">
+        Paiement en <strong>12x sans frais via PayPal</strong><br>
+        Soit seulement <strong>41,58 € / mois</strong>
+      </div>
+    </div>
+  </section>
+
+  <div class="visual-showcase">
+    <div class="video-hero">
+      <div class="video-badge">
+        <span class="dot"></span>
+        <span id="vid-badge-txt">TOURNÉ DANS LES CALANQUES DE MARSEILLE (1080p HD)</span>
+      </div>
+      <div style="font-size: 54px; margin-bottom: 12px;">🚵‍♂️ 🌊</div>
+      <h3 style="font-family:var(--font-title); font-size:24px; color:#fff;" id="vid-heading">Performance Réelle sur Terrain Rugueux</h3>
+      <p style="color:#a1a1aa; max-width:620px; font-size:14px; margin-top:8px;" id="vid-caption">Découvrez le vélo en action sur les sentiers rocheux des Calanques de Marseille : puissance électrique réactive, franchissement facile et stabilité optimale.</p>
+    </div>
+  </div>
+
+  <h2 class="section-heading" id="feat-heading">L'Excellence Technologique à Chaque Coup de Pédale</h2>
+  <div class="features-grid">
+    <div class="feature-card">
+      <div class="icon">🔋</div>
+      <h3 id="f1-t">180 km d'Autonomie</h3>
+      <p id="f1-d">Batterie haute capacité 48V 25Ah (1200Wh) cellules LG. Parcourez plusieurs jours de sorties et de montagne sans penser à la recharge.</p>
+    </div>
+    <div class="feature-card">
+      <div class="icon">📱</div>
+      <h3 id="f2-t">Cockpit Guidon "CarPlay"</h3>
+      <p id="f2-d">Écran couleur OLED 5" étanche avec cartographie GPS intégrée en temps réel, vitesse, dénivelé et synchronisation smartphone.</p>
+    </div>
+    <div class="feature-card">
+      <div class="icon">🔥</div>
+      <h3 id="f3-t">Poignées Chauffantes</h3>
+      <p id="f3-d">Système thermo-régulé à 3 intensités pilotable au guidon : vos mains restent chaudes et réactives même par temps glacial.</p>
+    </div>
+    <div class="feature-card">
+      <div class="icon">⚡</div>
+      <h3 id="f4-t">Moteur Couple 85 Nm</h3>
+      <p id="f4-d">Assistance électrique intelligente à capteur de couple : grimpez les montées les plus abruptes avec une aisance déconcertante.</p>
+    </div>
+    <div class="feature-card">
+      <div class="icon">🌿</div>
+      <h3 id="f5-t">Châssis Noir Mat & Chrome</h3>
+      <p id="f5-d">Aluminium 6061 renforcé aérospatial 100% recyclable. Look furtif haut de gamme, alliant esprit éco-responsable et puissance brute.</p>
+    </div>
+    <div class="feature-card">
+      <div class="icon">💳</div>
+      <h3 id="f6-t">499 € en 12x sans frais</h3>
+      <p id="f6-d">Offre directe d'usine sans intermédiaire. Réglez facilement en 12 mensualités de 41,58 € sans aucun frais caché via PayPal.</p>
+    </div>
+  </div>
+
+  <div class="specs-box">
+    <h2 style="font-family:var(--font-title); font-size:24px; text-align:center; color:#fff;" id="specs-title">Fiche Technique Complète</h2>
+    <table class="specs-table">
+      <tr><td class="col-name" id="s1-k">Cadre & Finition</td><td class="col-val" id="s1-v">Aluminium 6061 T6 renforcé, Noir Mat & Chrome poli</td></tr>
+      <tr><td class="col-name" id="s2-k">Batterie & Capacité</td><td class="col-val" id="s2-v">Li-ion LG 48V 25Ah (1200Wh) intégrée et amovible avec clé</td></tr>
+      <tr><td class="col-name" id="s3-k">Autonomie Record</td><td class="col-val" id="s3-v">Jusqu'à 180 km (mode éco) / 115 km (usage mixte tout-terrain)</td></tr>
+      <tr><td class="col-name" id="s4-k">Cockpit Guidon</td><td class="col-val" id="s4-v">Écran OLED tactile 5" CarPlay avec GPS cartographique temps réel</td></tr>
+      <tr><td class="col-name" id="s5-k">Confort Chauffant</td><td class="col-val" id="s5-v">Poignées chauffantes intégrées thermo-régulées (3 niveaux)</td></tr>
+      <tr><td class="col-name" id="s6-k">Freinage & Pneus</td><td class="col-val" id="s6-v">Disques hydrauliques Shimano 4 pistons / Pneus Maxxis 29" x 2.4"</td></tr>
+      <tr><td class="col-name" id="s7-k">Suspension</td><td class="col-val" id="s7-v">Fourche pneumatique débattement 140 mm réglable avec blocage</td></tr>
+      <tr><td class="col-name" id="s8-k">Poids & Garantie</td><td class="col-val" id="s8-v">19,8 kg (batterie incluse) • Garantie cadre 5 ans, composants 2 ans</td></tr>
+    </table>
+  </div>
+
+  <button class="chatbot-toggle" onclick="toggleChatbot()">
+    💬 <span id="chat-toggle-lbl">Discuter avec Yoni</span>
+  </button>
+
+  <div class="chatbot-window" id="chatWin">
+    <div class="chat-header">
+      <div class="chat-header-info">
+        <div class="chat-avatar">Y</div>
+        <div>
+          <h4>Yoni</h4>
+          <p id="chat-status">● Conseiller officiel en ligne</p>
+        </div>
+      </div>
+      <button class="chat-close" onclick="toggleChatbot()">&times;</button>
+    </div>
+    <div class="chat-msgs" id="chatMsgs">
+      <div class="bubble bot" id="bot-hello">
+        Bonjour ! Je suis Yoni, le conseiller officiel de l'APEX E-Trail 900. Posez-moi vos questions sur l'autonomie de 180 km, le cockpit CarPlay, les poignées chauffantes ou le paiement en 12x PayPal !
+      </div>
+    </div>
+    <div class="quick-chips">
+      <button class="chip" onclick="askQuick('Quelle est l'autonomie ?')">Autonomie ?</button>
+      <button class="chip" onclick="askQuick('Comment marche le CarPlay ?')">CarPlay / GPS ?</button>
+      <button class="chip" onclick="askQuick('Les poignées chauffantes ?')">Poignées ?</button>
+      <button class="chip" onclick="askQuick('Paiement 12x PayPal ?')">Paiement 12x ?</button>
+    </div>
+    <div class="chat-bar">
+      <input type="text" id="chatIn" placeholder="Posez une question à Yoni..." onkeydown="if(event.key==='Enter') sendChat()">
+      <button onclick="sendChat()">></button>
+    </div>
+  </div>
+
+  <footer>
+    <p>© 2026 APEX E-TRAIL. Tous droits réservés. Conçu pour l'aventure responsable.</p>
+  </footer>
+
+  <script>
+    const i18n = {
+      fr: {
+        dir: 'ltr',
+        badge: 'CALANQUES ÉDITION',
+        tag: '⚡ Vélo Électrique Tout-Terrain Haute Performance',
+        title: 'Dominez chaque sentier.<br>Sans compromis.',
+        sub: 'Ingénierie sportive et durable : cadre noir mat aux finitions chrome poli, autonomie record de 180 km, smart cockpit CarPlay avec GPS et poignées chauffantes.',
+        paypal: 'Paiement en <strong>12x sans frais via PayPal</strong><br>Soit seulement <strong>41,58 € / mois</strong>',
+        order: 'Commander 499 €',
+        vidBadge: 'TOURNÉ DANS LES CALANQUES DE MARSEILLE (1080p HD)',
+        vidHead: 'Performance Réelle sur Terrain Rugueux',
+        vidCap: 'Découvrez le vélo en action sur les sentiers rocheux des Calanques de Marseille : puissance électrique réactive, franchissement facile et stabilité optimale.',
+        featHead: 'L'Excellence Technologique à Chaque Coup de Pédale',
+        chatLbl: 'Discuter avec Yoni',
+        welcome: 'Bonjour ! Je suis Yoni, le conseiller officiel de l'APEX E-Trail 900. Posez-moi vos questions sur l'autonomie de 180 km, le cockpit CarPlay, les poignées chauffantes ou le paiement en 12x PayPal !'
+      },
+      en: {
+        dir: 'ltr',
+        badge: 'CALANQUES EDITION',
+        tag: '⚡ High Performance All-Terrain Electric Bike',
+        title: 'Conquer Every Trail.<br>Zero Compromise.',
+        sub: 'Sporty and sustainable engineering: matte black frame with polished chrome accents, record 180 km range, CarPlay smart cockpit with GPS and heated grips.',
+        paypal: 'Pay in <strong>12x interest-free via PayPal</strong><br>Just <strong>€41.58 / month</strong>',
+        order: 'Order Now €499',
+        vidBadge: 'FILMED IN MARSEILLE CALANQUES (1080p HD)',
+        vidHead: 'Real World All-Terrain Performance',
+        vidCap: 'Watch the bike tackle the rocky trails of the Marseille Calanques: instant electric torque, effortless climbing and total stability.',
+        featHead: 'Cutting-Edge Technology on Every Ride',
+        chatLbl: 'Chat with Yoni',
+        welcome: 'Hello! I am Yoni, the official advisor for the APEX E-Trail 900. Ask me anything about the 180 km range, CarPlay cockpit, heated grips, or 12x PayPal financing!'
+      },
+      es: {
+        dir: 'ltr',
+        badge: 'EDICIÓN CALANQUES',
+        tag: '⚡ Bicicleta Eléctrica Todoterreno de Alto Rendimiento',
+        title: 'Domina cada sendero.<br>Sin concesiones.',
+        sub: 'Ingeniería deportiva y sostenible: cuadro negro mate con detalles en cromo pulido, autonomía récord de 180 km, cockpit CarPlay con GPS y puños calefactables.',
+        paypal: 'Pago en <strong>12 cuotas sin intereses vía PayPal</strong><br>Solo <strong>41,58 € / mes</strong>',
+        order: 'Comprar 499 €',
+        vidBadge: 'RODADO EN LAS CALANQUES DE MARSELLA (1080p HD)',
+        vidHead: 'Rendimiento Real en Terreno Difícil',
+        vidCap: 'Descubre la bicicleta en acción por los senderos rocosos de Marsella: par motor instantáneo, subidas fáciles y control total.',
+        featHead: 'Tecnología de Vanguardia en Cada Pedaleo',
+        chatLbl: 'Hablar con Yoni',
+        welcome: '¡Hola! Soy Yoni, el asesor oficial de la APEX E-Trail 900. ¿Tienes dudas sobre la autonomía de 180 km, la pantalla CarPlay o el pago en 12 plazos?'
+      },
+      he: {
+        dir: 'rtl',
+        badge: 'מהדורת קלאנק',
+        tag: '⚡ אופני שטח חשמליים בעלי ביצועים גבוהים',
+        title: 'לכבוש כל שביל.<br>ללא פשרות.',
+        sub: 'הנדסה ספורטיבית ואקולוגית: שלדת שחור מט עם גימור כרום, טווח סוללה שובר שיאים של 180 ק״מ, קוקפיט CarPlay עם GPS מובנה וידיות מחוממות.',
+        paypal: 'תשלום ב-<strong>12 תשלומים ללא ריבית דרך PayPal</strong><br>רק <strong>41.58 € לחודש</strong>',
+        order: 'הזמן עכשיו 499 €',
+        vidBadge: 'צולם במצוקי מרסיי (1080p HD)',
+        vidHead: 'ביצועי שטח אמיתיים בתנאי שטח קשים',
+        vidCap: 'צפו באופניים בפעולה בשבילי המצוקים של מרסיי: כוח חשמלי מיידי, מעבר מכשולים חלק ויציבות מוחלטת.',
+        featHead: 'מצוינות טכנולוגית בכל דיווש',
+        chatLbl: 'שוחח עם יוני',
+        welcome: 'שלום! אני יוני, היועץ הרשמי של APEX E-Trail 900. שאל אותי כל שאלה על טווח 180 ק״מ, מסך ה-CarPlay, הידיות המחוממות או תשלום ב-12 תשלומים!'
+      },
+      ar: {
+        dir: 'rtl',
+        badge: 'إصدار كالانك',
+        tag: '⚡ دراجة كهربائية جبلية فائقة الأداء لجميع التضاريس',
+        title: 'سيطر على كل الطرق.<br>دون أي مساومة.',
+        sub: 'هندسة رياضية ومستدامة: هيكل أسود غير لامع مع لمسات كروم مصقولة، مدى قيادة قياسي 180 كم، قمرة قيادة ذكية CarPlay مع نظام GPS ومقابض تدفئة.',
+        paypal: 'الدفع على <strong>12 قسطاً بدون فوائد عبر PayPal</strong><br>فقط <strong>41.58 € شهرياً</strong>',
+        order: 'اطلب الآن 499 €',
+        vidBadge: 'تم التصوير في كالانك مرسيليا (1080p HD)',
+        vidHead: 'أداء حقيقي على أصعب التضاريس',
+        vidCap: 'شاهد الدراجة وهي تتحدى مسارات مرسيليا الصخرية: عزم كهربائي فوري، صعود سهل وثبات تام.',
+        featHead: 'التميز التكنولوجي مع كل حركة دواسة',
+        chatLbl: 'تحدث مع يوني',
+        welcome: 'مرحباً! أنا يوني، المستشار الرسمي لدراجة APEX E-Trail 900. تفضل بطرح أسئلتك حول مدى 180 كم، أو شاشة CarPlay أو التقسيط على 12 شهراً!'
+      }
+    };
+
+    function applyLanguage(lang) {
+      const cur = i18n[lang] || i18n.fr;
+      document.documentElement.lang = lang;
+      document.documentElement.dir = cur.dir;
+      document.getElementById('lbl-badge').textContent = cur.badge;
+      document.getElementById('hero-tag').textContent = cur.tag;
+      document.getElementById('hero-title').innerHTML = cur.title;
+      document.getElementById('hero-sub').textContent = cur.sub;
+      document.getElementById('paypal-text').innerHTML = cur.paypal;
+      document.getElementById('btn-order').textContent = cur.order;
+      document.getElementById('vid-badge-txt').textContent = cur.vidBadge;
+      document.getElementById('vid-heading').textContent = cur.vidHead;
+      document.getElementById('vid-caption').textContent = cur.vidCap;
+      document.getElementById('feat-heading').textContent = cur.featHead;
+      document.getElementById('chat-toggle-lbl').textContent = cur.chatLbl;
+      document.getElementById('bot-hello').textContent = cur.welcome;
+    }
+
+    function toggleChatbot() {
+      const w = document.getElementById('chatWin');
+      w.style.display = (w.style.display === 'flex') ? 'none' : 'flex';
+    }
+
+    function askQuick(q) {
+      document.getElementById('chatIn').value = q;
+      sendChat();
+    }
+
+    function sendChat() {
+      const input = document.getElementById('chatIn');
+      const val = input.value.trim();
+      if (!val) return;
+      appendBubble(val, 'user');
+      input.value = '';
+      setTimeout(() => {
+        let answer = "Je suis Yoni, à votre écoute ! N'hésitez pas à me poser vos questions sur l'autonomie (180 km), le smart cockpit CarPlay, les poignées chauffantes ou le paiement en 12x PayPal (41,58 €/mois).";
+        const query = val.toLowerCase();
+        if (query.includes('auto') || query.includes('batter') || query.includes('range') || query.includes('km')) {
+          answer = "L'APEX E-Trail 900 offre une autonomie record de <strong>180 km</strong> grâce à sa batterie haute densité LG 48V 25Ah (1200Wh) amovible sous clé. Temps de charge rapide : 3h30 !";
+        } else if (query.includes('carplay') || query.includes('gps') || query.includes('guidon') || query.includes('ecran') || query.includes('écran')) {
+          answer = "Le cockpit intègre un écran tactile couleur OLED 5 pouces étanche IP67 style <strong>CarPlay</strong> avec GPS cartographique temps réel, synchronisation smartphone iOS/Android, altimètre et suivi de batterie.";
+        } else if (query.includes('chauff') || query.includes('poign') || query.includes('froid') || query.includes('grip')) {
+          answer = "Le guidon est doté de <strong>poignées chauffantes thermo-régulées</strong> avec 3 niveaux d'intensité réglables via un bouton au guidon. Vos mains restent chaudes et réactives en plein hiver !";
+        } else if (query.includes('paypal') || query.includes('12x') || query.includes('prix') || query.includes('pay') || query.includes('combien')) {
+          answer = "Le tarif de lancement est de <strong>499 €</strong> (au lieu de 1 299 €). Vous pouvez régler en <strong>12 mensualités de 41,58 € sans frais via PayPal</strong> avec livraison offerte en 48h partout en Europe.";
+        } else if (query.includes('livraison') || query.includes('garantie') || query.includes('sav')) {
+          answer = "Livraison offerte et suivie sous 48h. Le cadre aluminium est garanti 5 ans, et tous les composants électriques sont garantis 2 ans avec retour gratuit sous 30 jours.";
+        }
+        appendBubble(answer, 'bot');
+      }, 350);
+    }
+
+    function appendBubble(txt, sender) {
+      const box = document.getElementById('chatMsgs');
+      const b = document.createElement('div');
+      b.className = 'bubble ' + sender;
+      b.innerHTML = txt;
+      box.appendChild(b);
+      box.scrollTop = box.scrollHeight;
+    }
+  </script>
+</body>
+</html>
