@@ -73,6 +73,7 @@
       font-size: 13px;
       cursor: pointer;
       outline: none;
+      font-weight: 600;
     }
     .btn-main {
       background: linear-gradient(135deg, var(--accent), #e69c23);
@@ -202,6 +203,10 @@
       align-items: center;
       gap: 8px;
       z-index: 10;
+    }
+    [dir="rtl"] .video-badge {
+      left: auto;
+      right: 16px;
     }
     .video-badge .dot {
       width: 8px;
@@ -638,10 +643,10 @@
       </div>
     </div>
     <div class="quick-chips">
-      <button class="chip" onclick="askQuick('Quelle est l'autonomie ?')">Autonomie ?</button>
-      <button class="chip" onclick="askQuick('Comment marche le CarPlay ?')">CarPlay / GPS ?</button>
-      <button class="chip" onclick="askQuick('Les poignées chauffantes ?')">Poignées ?</button>
-      <button class="chip" onclick="askQuick('Paiement 12x PayPal ?')">Paiement 12x ?</button>
+      <button class="chip" id="chip-1" onclick="askQuick(this.textContent)">Autonomie ?</button>
+      <button class="chip" id="chip-2" onclick="askQuick(this.textContent)">CarPlay / GPS ?</button>
+      <button class="chip" id="chip-3" onclick="askQuick(this.textContent)">Poignées ?</button>
+      <button class="chip" id="chip-4" onclick="askQuick(this.textContent)">Paiement 12x ?</button>
     </div>
     <div class="chat-bar">
       <input type="text" id="chatIn" placeholder="Posez une question à Yoni..." onkeydown="if(event.key==='Enter') sendChat()">
@@ -650,105 +655,230 @@
   </div>
 
   <footer>
-    <p>© 2026 APEX E-TRAIL. Tous droits réservés. Conçu pour l'aventure responsable.</p>
+    <p id="footer-text">© 2026 APEX E-TRAIL. Tous droits réservés. Conçu pour l'aventure responsable.</p>
   </footer>
 
   <script>
     const i18n = {
       fr: {
-        dir: 'ltr',
-        badge: 'CALANQUES ÉDITION',
-        tag: '⚡ Vélo Électrique Tout-Terrain Haute Performance',
-        title: 'Dominez chaque sentier.<br>Sans compromis.',
-        sub: 'Ingénierie sportive et durable : cadre noir mat aux finitions chrome poli, autonomie record de 180 km, smart cockpit CarPlay avec GPS et poignées chauffantes.',
-        paypal: 'Paiement en <strong>12x sans frais via PayPal</strong><br>Soit seulement <strong>41,58 € / mois</strong>',
-        order: 'Commander 499 €',
-        vidBadge: 'EN ACTION DANS LES CALANQUES DE MARSEILLE (1080p HD)',
-        vidHead: 'Performance Réelle sur les Crêtes Méditerranéennes',
-        vidCap: 'Vidéo cinématique capturée sur les sentiers rocheux des Calanques : assistance électrique silencieuse, couple instantané de 85 Nm et franchissement haute stabilité.',
-        g1Title: 'Design Châssis Noir Mat & Chrome',
-        g1Desc: 'Cadre en aluminium 6061 recyclable de grade aérospatial avec intégration furtive de la batterie LG 1200Wh. Peinture thermolaquée anti-rayures et détails chrome miroir.',
-        g2Title: 'Cockpit CarPlay & Poignées Chauffantes',
-        g2Desc: 'Écran tactile OLED 5 pouces étanche avec cartographie GPS intégrée, synchronisation smartphone, et poignées chauffantes thermo-régulées à 3 intensités au guidon.',
-        featHead: 'L'Excellence Technologique à Chaque Coup de Pédale',
-        chatLbl: 'Discuter avec Yoni',
-        welcome: 'Bonjour ! Je suis Yoni, le conseiller officiel de l'APEX E-Trail 900. Posez-moi vos questions sur l'autonomie de 180 km, le cockpit CarPlay, les poignées chauffantes ou le paiement en 12x PayPal !'
+        dir: "ltr",
+        badge: "CALANQUES ÉDITION",
+        tag: "⚡ Vélo Électrique Tout-Terrain Haute Performance",
+        title: "Dominez chaque sentier.<br>Sans compromis.",
+        sub: "Ingénierie sportive et durable : cadre noir mat aux finitions chrome poli, autonomie record de 180 km, smart cockpit CarPlay avec GPS et poignées chauffantes.",
+        paypal: "Paiement en <strong>12x sans frais via PayPal</strong><br>Soit seulement <strong>41,58 € / mois</strong>",
+        order: "Commander 499 €",
+        vidBadge: "EN ACTION DANS LES CALANQUES DE MARSEILLE (1080p HD)",
+        vidHead: "Performance Réelle sur les Crêtes Méditerranéennes",
+        vidCap: "Vidéo cinématique capturée sur les sentiers rocheux des Calanques : assistance électrique silencieuse, couple instantané de 85 Nm et franchissement haute stabilité.",
+        g1Title: "Design Châssis Noir Mat & Chrome",
+        g1Desc: "Cadre en aluminium 6061 recyclable de grade aérospatial avec intégration furtive de la batterie LG 1200Wh. Peinture thermolaquée anti-rayures et détails chrome miroir.",
+        g2Title: "Cockpit CarPlay & Poignées Chauffantes",
+        g2Desc: "Écran tactile OLED 5 pouces étanche avec cartographie GPS intégrée, synchronisation smartphone, et poignées chauffantes thermo-régulées à 3 intensités au guidon.",
+        featHead: "L'Excellence Technologique à Chaque Coup de Pédale",
+        f1t: "180 km d'Autonomie",
+        f1d: "Batterie haute capacité 48V 25Ah (1200Wh) cellules LG. Parcourez plusieurs jours de sorties et de montagne sans penser à la recharge.",
+        f2t: "Cockpit Guidon \"CarPlay\"",
+        f2d: "Écran couleur OLED 5\" étanche avec cartographie GPS intégrée en temps réel, vitesse, dénivelé et synchronisation smartphone.",
+        f3t: "Poignées Chauffantes",
+        f3d: "Système thermo-régulé à 3 intensités pilotable au guidon : vos mains restent chaudes et réactives même par temps glacial.",
+        f4t: "Moteur Couple 85 Nm",
+        f4d: "Assistance électrique intelligente à capteur de couple : grimpez les montées les plus abruptes avec une aisance déconcertante.",
+        f5t: "Châssis Noir Mat & Chrome",
+        f5d: "Aluminium 6061 renforcé aérospatial 100% recyclable. Look furtif haut de gamme, alliant esprit éco-responsable et puissance brute.",
+        f6t: "499 € en 12x sans frais",
+        f6d: "Offre directe d'usine sans intermédiaire. Réglez facilement en 12 mensualités de 41,58 € sans aucun frais caché via PayPal.",
+        specsTitle: "Fiche Technique Complète",
+        s1k: "Cadre & Finition", s1v: "Aluminium 6061 T6 renforcé, Noir Mat & Chrome poli",
+        s2k: "Batterie & Capacité", s2v: "Li-ion LG 48V 25Ah (1200Wh) intégrée et amovible avec clé",
+        s3k: "Autonomie Record", s3v: "Jusqu'à 180 km (mode éco) / 115 km (usage mixte tout-terrain)",
+        s4k: "Cockpit Guidon", s4v: "Écran OLED tactile 5\" CarPlay avec GPS cartographique temps réel",
+        s5k: "Confort Chauffant", s5v: "Poignées chauffantes intégrées thermo-régulées (3 niveaux)",
+        s6k: "Freinage & Pneus", s6v: "Disques hydrauliques Shimano 4 pistons / Pneus Maxxis 29\" x 2.4\"",
+        s7k: "Suspension", s7v: "Fourche pneumatique débattement 140 mm réglable avec blocage",
+        s8k: "Poids & Garantie", s8v: "19,8 kg (batterie incluse) • Garantie cadre 5 ans, composants 2 ans",
+        chatLbl: "Discuter avec Yoni",
+        chatStatus: "● Conseiller officiel en ligne",
+        welcome: "Bonjour ! Je suis Yoni, le conseiller officiel de l'APEX E-Trail 900. Posez-moi vos questions sur l'autonomie de 180 km, le cockpit CarPlay, les poignées chauffantes ou le paiement en 12x PayPal !",
+        chip1: "Autonomie ?", chip2: "CarPlay / GPS ?", chip3: "Poignées ?", chip4: "Paiement 12x ?",
+        placeholder: "Posez une question à Yoni...",
+        footer: "© 2026 APEX E-TRAIL. Tous droits réservés. Conçu pour l'aventure responsable."
       },
       en: {
-        dir: 'ltr',
-        badge: 'CALANQUES EDITION',
-        tag: '⚡ High Performance All-Terrain Electric Bike',
-        title: 'Conquer Every Trail.<br>Zero Compromise.',
-        sub: 'Sporty and sustainable engineering: matte black frame with polished chrome accents, record 180 km range, CarPlay smart cockpit with GPS and heated grips.',
-        paypal: 'Pay in <strong>12x interest-free via PayPal</strong><br>Just <strong>€41.58 / month</strong>',
-        order: 'Order Now €499',
-        vidBadge: 'IN ACTION IN THE MARSEILLE CALANQUES (1080p HD)',
-        vidHead: 'Real World Performance on Mediterranean Ridges',
-        vidCap: 'Cinematic video shot on the rocky trails of the Calanques: silent electric assistance, instant 85 Nm torque and rock-solid stability.',
-        g1Title: 'Matte Black & Chrome Frame Design',
-        g1Desc: 'Recyclable aerospace-grade 6061 aluminum frame with sleek battery integration. Scratch-resistant matte coating with mirror chrome accents.',
-        g2Title: 'CarPlay Cockpit & Heated Grips',
-        g2Desc: 'Waterproof 5-inch OLED touchscreen with built-in GPS mapping, smartphone sync, and 3-level thermo-regulated heated grips on the handlebar.',
-        featHead: 'Cutting-Edge Technology on Every Ride',
-        chatLbl: 'Chat with Yoni',
-        welcome: 'Hello! I am Yoni, the official advisor for the APEX E-Trail 900. Ask me anything about the 180 km range, CarPlay cockpit, heated grips, or 12x PayPal financing!'
+        dir: "ltr",
+        badge: "CALANQUES EDITION",
+        tag: "⚡ High Performance All-Terrain Electric Bike",
+        title: "Conquer Every Trail.<br>Zero Compromise.",
+        sub: "Sporty and sustainable engineering: matte black frame with polished chrome accents, record 180 km range, CarPlay smart cockpit with GPS and heated grips.",
+        paypal: "Pay in <strong>12x interest-free via PayPal</strong><br>Just <strong>€41.58 / month</strong>",
+        order: "Order Now €499",
+        vidBadge: "IN ACTION IN THE MARSEILLE CALANQUES (1080p HD)",
+        vidHead: "Real World Performance on Mediterranean Ridges",
+        vidCap: "Cinematic video shot on the rocky trails of the Calanques: silent electric assistance, instant 85 Nm torque and rock-solid stability.",
+        g1Title: "Matte Black & Chrome Frame Design",
+        g1Desc: "Recyclable aerospace-grade 6061 aluminum frame with sleek battery integration. Scratch-resistant matte coating with mirror chrome accents.",
+        g2Title: "CarPlay Cockpit & Heated Grips",
+        g2Desc: "Waterproof 5-inch OLED touchscreen with built-in GPS mapping, smartphone sync, and 3-level thermo-regulated heated grips on the handlebar.",
+        featHead: "Cutting-Edge Technology on Every Ride",
+        f1t: "180 km Range",
+        f1d: "High-density 48V 25Ah (1200Wh) LG battery pack. Enjoy multi-day rides across rugged trails without range anxiety.",
+        f2t: "CarPlay Smart Cockpit",
+        f2d: "Waterproof 5\" OLED color screen with real-time GPS mapping, speed, altitude, and seamless smartphone pairing.",
+        f3t: "Heated Grips",
+        f3d: "3-level thermo-regulated heating controlled directly from the handlebar: keep full control even in freezing temperatures.",
+        f4t: "85 Nm Powerful Torque",
+        f4d: "Intelligent mid-drive motor with torque sensor: conquer steep climbs with natural, responsive pedal assistance.",
+        f5t: "Matte Black & Chrome Chassis",
+        f5d: "100% recyclable aerospace 6061 alloy. Aggressive stealth aesthetics combined with rugged off-road endurance.",
+        f6t: "€499 in 12x Interest-Free",
+        f6d: "Factory-direct pricing with no middleman. Pay in 12 easy monthly installments of €41.58 with no hidden fees via PayPal.",
+        specsTitle: "Official Technical Specifications",
+        s1k: "Frame & Finish", s1v: "Reinforced 6061 T6 Aluminum, Stealth Matte Black & Mirror Chrome",
+        s2k: "Battery & Capacity", s2v: "LG Li-ion 48V 25Ah (1200Wh), key-locked removable unit",
+        s3k: "Battery Range", s3v: "Up to 180 km (eco mode) / 115 km (mountain trail mode)",
+        s4k: "Handlebar Cockpit", s4v: "5\" OLED touch screen, CarPlay style with full GPS navigation",
+        s5k: "Grip Heating", s5v: "Built-in ergonomic thermo-regulated heated grips (3 heat levels)",
+        s6k: "Brakes & Tires", s6v: "Shimano 4-piston hydraulic disc brakes / Maxxis 29\" x 2.4\" tires",
+        s7k: "Suspension", s7v: "Air suspension fork, 140 mm travel with lockout control",
+        s8k: "Weight & Warranty", s8v: "19.8 kg (battery included) • 5-year frame, 2-year electronics warranty",
+        chatLbl: "Chat with Yoni",
+        chatStatus: "● Official Advisor Online",
+        welcome: "Hello! I am Yoni, the official advisor for the APEX E-Trail 900. Ask me anything about the 180 km range, CarPlay cockpit, heated grips, or 12x PayPal financing!",
+        chip1: "Range?", chip2: "CarPlay / GPS?", chip3: "Heated Grips?", chip4: "12x Payment?",
+        placeholder: "Ask Yoni a question...",
+        footer: "© 2026 APEX E-TRAIL. All rights reserved. Built for sustainable adventures."
       },
       es: {
-        dir: 'ltr',
-        badge: 'EDICIÓN CALANQUES',
-        tag: '⚡ Bicicleta Eléctrica Todoterreno de Alto Rendimiento',
-        title: 'Domina cada sendero.<br>Sin concesiones.',
-        sub: 'Ingeniería deportiva y sostenible: cuadro negro mate con detalles en cromo pulido, autonomía récord de 180 km, cockpit CarPlay con GPS y puños calefactables.',
-        paypal: 'Pago en <strong>12 cuotas sin intereses vía PayPal</strong><br>Solo <strong>41,58 € / mes</strong>',
-        order: 'Comprar 499 €',
-        vidBadge: 'EN ACCIÓN EN LAS CALANQUES DE MARSELLA (1080p HD)',
-        vidHead: 'Rendimiento Real en los Acantilados Mediterráneos',
-        vidCap: 'Vídeo cinematográfico en los senderos rocosos de Marsella: asistencia silenciosa, par de 85 Nm y estabilidad absoluta.',
-        g1Title: 'Diseño Chasis Negro Mate y Cromo',
-        g1Desc: 'Cuadro de aluminio aeroespacial 6061 reciclable con integración limpia de la batería. Acabado mate antirrayaduras y detalles en cromo.',
-        g2Title: 'Cockpit CarPlay y Puños Calefactables',
-        g2Desc: 'Pantalla OLED táctil de 5 pulgadas con GPS integrado, conexión móvil y puños con 3 niveles de temperatura en el manillar.',
-        featHead: 'Tecnología de Vanguardia en Cada Pedaleo',
-        chatLbl: 'Hablar con Yoni',
-        welcome: '¡Hola! Soy Yoni, el asesor oficial de la APEX E-Trail 900. ¿Tienes dudas sobre la autonomía de 180 km, la pantalla CarPlay o el pago en 12 plazos?'
+        dir: "ltr",
+        badge: "EDICIÓN CALANQUES",
+        tag: "⚡ Bicicleta Eléctrica Todoterreno de Alto Rendimiento",
+        title: "Domina cada sendero.<br>Sin concesiones.",
+        sub: "Ingeniería deportiva y sostenible: cuadro negro mate con detalles en cromo pulido, autonomía récord de 180 km, cockpit CarPlay con GPS y puños calefactables.",
+        paypal: "Pago en <strong>12 cuotas sin intereses vía PayPal</strong><br>Solo <strong>41,58 € / mes</strong>",
+        order: "Comprar 499 €",
+        vidBadge: "EN ACCIÓN EN LAS CALANQUES DE MARSELLA (1080p HD)",
+        vidHead: "Rendimiento Real en los Acantilados Mediterráneos",
+        vidCap: "Vídeo cinematográfico en los senderos rocosos de Marsella: asistencia silenciosa, par de 85 Nm y estabilidad absoluta.",
+        g1Title: "Diseño Chasis Negro Mate y Cromo",
+        g1Desc: "Cuadro de aluminio aeroespacial 6061 reciclable con integración limpia de la batería. Acabado mate antirrayaduras y detalles en cromo.",
+        g2Title: "Cockpit CarPlay y Puños Calefactables",
+        g2Desc: "Pantalla OLED táctil de 5 pulgadas con GPS integrado, conexión móvil y puños con 3 niveles de temperatura en el manillar.",
+        featHead: "Tecnología de Vanguardia en Cada Pedaleo",
+        f1t: "180 km de Autonomía",
+        f1d: "Batería LG 48V 25Ah (1200Wh) de alta capacidad. Recorre largas rutas sin preocuparte por la recarga.",
+        f2t: "Cockpit Inteligente CarPlay",
+        f2d: "Pantalla táctil OLED de 5\" resistente al agua con GPS en tiempo real y sincronización móvil.",
+        f3t: "Puños Calefactables",
+        f3d: "Control térmico de 3 intensidades en el manillar: mantén las manos calientes en días fríos.",
+        f4t: "Motor Potente 85 Nm",
+        f4d: "Asistencia eléctrica con sensor de par inteligente para superar las pendientes más exigentes.",
+        f5t: "Aluminio Negro Mate y Cromo",
+        f5d: "Aleación 6061 100% reciclable. Diseño deportivo moderno con máxima durabilidad todoterreno.",
+        f6t: "499 € en 12 plazos sin intereses",
+        f6d: "Precio directo de fábrica. Paga en 12 cómodas mensualidades de 41,58 € a través de PayPal.",
+        specsTitle: "Ficha Técnica Oficial",
+        s1k: "Cuadro y Acabado", s1v: "Aluminio 6061 T6 reforzado, Negro Mate y Cromo pulido",
+        s2k: "Batería", s2v: "LG Li-ion 48V 25Ah (1200Wh), extraíble con cerradura de seguridad",
+        s3k: "Autonomía", s3v: "Hasta 180 km (modo eco) / 115 km (uso exigente de montaña)",
+        s4k: "Pantalla Manillar", s4v: "OLED táctil de 5\" estilo CarPlay con navegación GPS integrada",
+        s5k: "Confort Térmico", s5v: "Puños ergonómicos calefactables con 3 niveles ajustables",
+        s6k: "Frenos y Neumáticos", s6v: "Frenos hidráulicos Shimano 4 pistones / Neumáticos Maxxis 29\" x 2.4\"",
+        s7k: "Suspensión", s7v: "Horquilla neumática de 140 mm de recorrido con bloqueo",
+        s8k: "Peso y Garantía", s8v: "19,8 kg (batería incluida) • 5 años cuadro, 2 años electrónica",
+        chatLbl: "Hablar con Yoni",
+        chatStatus: "● Asesor Oficial En Línea",
+        welcome: "¡Hola! Soy Yoni, el asesor oficial de la APEX E-Trail 900. ¿Tienes dudas sobre la autonomía de 180 km, la pantalla CarPlay o el pago en 12 plazos?",
+        chip1: "¿Autonomía?", chip2: "¿CarPlay / GPS?", chip3: "¿Puños térmicos?", chip4: "¿Pago 12 plazos?",
+        placeholder: "Pregunta a Yoni...",
+        footer: "© 2026 APEX E-TRAIL. Todos los derechos reservados."
       },
       he: {
-        dir: 'rtl',
-        badge: 'מהדורת קלאנק',
-        tag: '⚡ אופני שטח חשמליים בעלי ביצועים גבוהים',
-        title: 'לכבוש כל שביל.<br>ללא פשרות.',
-        sub: 'הנדסה ספורטיבית ואקולוגית: שלדת שחור מט עם גימור כרום, טווח סוללה שובר שיאים של 180 ק״מ, קוקפיט CarPlay עם GPS מובנה וידיות מחוממות.',
-        paypal: 'תשלום ב-<strong>12 תשלומים ללא ריבית דרך PayPal</strong><br>רק <strong>41.58 € לחודש</strong>',
-        order: 'הזמן עכשיו 499 €',
-        vidBadge: 'בפעולה במצוקי מרסיי (1080p HD)',
-        vidHead: 'ביצועי שטח אמיתיים על רכסי הים התיכון',
-        vidCap: 'סרטון קולנועי שצולם בשבילי הסלעים של המצוקים: מנוע שקט, מומנט מיידי של 85 Nm ויציבות שטח מקסימלית.',
-        g1Title: 'עיצוב שלדת שחור מט וכרום',
-        g1Desc: 'שלדת אלומיניום תעופתי 6061 למחזור עם שילוב סוללה אלגנטי וצבע שחור מט עמיד לשריטות עם עיטורי כרום מלוטש.',
-        g2Title: 'קוקפיט CarPlay וידיות מחוממות',
-        g2Desc: 'מסך מגע OLED בגודל 5 אינץ' עמיד במים עם ניווט GPS מובנה, סנכרון לסמארטפון וידיות מחוממות עם 3 רמות חום בכידון.',
-        featHead: 'מצוינות טכנולוגית בכל דיווש',
-        chatLbl: 'שוחח עם יוני',
-        welcome: 'שלום! אני יוני, היועץ הרשמי של APEX E-Trail 900. שאל אותי כל שאלה על טווח 180 ק״מ, מסך ה-CarPlay, הידיות המחוממות או תשלום ב-12 תשלומים!'
+        dir: "rtl",
+        badge: "מהדורת קלאנק",
+        tag: "⚡ אופני שטח חשמליים בעלי ביצועים גבוהים",
+        title: "לכבוש כל שביל.<br>ללא פשרות.",
+        sub: "הנדסה ספורטיבית ואקולוגית: שלדת שחור מט עם גימור כרום, טווח סוללה שובר שיאים של 180 ק״מ, קוקפיט CarPlay עם GPS מובנה וידיות מחוממות.",
+        paypal: "תשלום ב-<strong>12 תשלומים ללא ריבית דרך PayPal</strong><br>רק <strong>41.58 € לחודש</strong>",
+        order: "הזמן עכשיו 499 €",
+        vidBadge: "בפעולה במצוקי מרסיי (1080p HD)",
+        vidHead: "ביצועי שטח אמיתיים על רכסי הים התיכון",
+        vidCap: "סרטון קולנועי שצולם בשבילי הסלעים של המצוקים: מנוע שקט, מומנט מיידי של 85 Nm ויציבות שטח מקסימלית.",
+        g1Title: "עיצוב שלדת שחור מט וכרום",
+        g1Desc: "שלדת אלומיניום תעופתי 6061 למחזור עם שילוב סוללה אלגנטי וצבע שחור מט עמיד לשריטות עם עיטורי כרום מלוטש.",
+        g2Title: "קוקפיט CarPlay וידיות מחוממות",
+        g2Desc: "מסך מגע OLED בגודל 5 אינץ' עמיד במים עם ניווט GPS מובנה, סנכרון לסמארטפון וידיות מחוממות עם 3 רמות חום בכידון.",
+        featHead: "מצוינות טכנולוגית בכל דיווש",
+        f1t: "טווח שיא של 180 ק״מ",
+        f1d: "סוללת LG מתקדמת 48V 25Ah (1200Wh). רכיבה חופשית לאורך ימים שלמים ללא דאגות טעינה.",
+        f2t: "קוקפיט חכם בסגנון CarPlay",
+        f2d: "מסך OLED צבעוני 5 אינץ' עמיד במים עם מפת GPS בזמן אמת וסנכרון מלא לטלפון.",
+        f3t: "ידיות מחוממות מובנות",
+        f3d: "מערכת חימום עם 3 רמות עוצמה לשליטה ישירה מהכידון: רכיבה חמה גם במזג אוויר קר.",
+        f4t: "מומנט עוצמתי של 85 Nm",
+        f4d: "מנוע מרכזי חכם עם חיישן מומנט לטיפוס קל וחלק בעליות התלולות ביותר.",
+        f5t: "שלדת שחור מט וכרום מלוטש",
+        f5d: "אלומיניום 6061 מחוזק למחזור. שילוב מושלם של עיצוב ספורטיבי קשוח ואחריות אקולוגית.",
+        f6t: "499 € ב-12 תשלומים ללא ריבית",
+        f6d: "מחיר ישיר מהיצרן ללא פערי תיווך. שלמו בקלות ב-12 תשלומים חודשיים של 41.58 € דרך PayPal.",
+        specsTitle: "מפרט טכני מלא",
+        s1k: "שלדה וגימור", s1v: "אלומיניום מחוזק 6061 T6, שחור מט וכרום מלוטש",
+        s2k: "סוללה וקיבולת", s2v: "LG Li-ion 48V 25Ah (1200Wh), נשלפת עם מנעול בטיחות",
+        s3k: "טווח סוללה", s3v: "עד 180 ק״מ (מצב חסכוני) / 115 ק״מ (שטח הררי מאומץ)",
+        s4k: "קוקפיט כידון", s4v: "מסך מגע OLED בגודל 5 אינץ' בסגנון CarPlay עם ניווט GPS",
+        s5k: "חימום ידיות", s5v: "ידיות מחוממות מובנות עם 3 רמות טמפרטורה",
+        s6k: "בלמים וצמיגים", s6v: "בלמי דיסק הידראוליים Shimano עם 4 בוכנות / צמיגי Maxxis 29\" x 2.4\"",
+        s7k: "בולם זעזועים", s7v: "מזלג אוויר עם מהלך 140 מ״מ ומנגנון נעילה",
+        s8k: "משקל ואחריות", s8v: "19.8 ק״ג (כולל סוללה) • 5 שנות אחריות לשלדה, שנתיים לרכיבים",
+        chatLbl: "שוחח עם יוני",
+        chatStatus: "● יועץ רשמי מחובר",
+        welcome: "שלום! אני יוני, היועץ הרשמי של APEX E-Trail 900. שאל אותי כל שאלה על טווח 180 ק״מ, מסך ה-CarPlay, הידיות המחוממות או תשלום ב-12 תשלומים!",
+        chip1: "טווח סוללה?", chip2: "מסך CarPlay?", chip3: "ידיות מחוממות?", chip4: "12 תשלומים?",
+        placeholder: "שאל את יוני שאלה...",
+        footer: "© 2026 APEX E-TRAIL. כל הזכויות שמורות."
       },
       ar: {
-        dir: 'rtl',
-        badge: 'إصدار كالانك',
-        tag: '⚡ دراجة كهربائية جبلية فائقة الأداء لجميع التضاريس',
-        title: 'سيطر على كل الطرق.<br>دون أي مساومة.',
-        sub: 'هندسة رياضية ومستدامة: هيكل أسود غير لامع مع لمسات كروم مصقولة، مدى قيادة قياسي 180 كم، قمرة قيادة ذكية CarPlay مع نظام GPS ومقابض تدفئة.',
-        paypal: 'الدفع على <strong>12 قسطاً بدون فوائد عبر PayPal</strong><br>فقط <strong>41.58 € شهرياً</strong>',
-        order: 'اطلب الآن 499 €',
-        vidBadge: 'أثناء القيادة في كالانك مرسيليا (1080p HD)',
-        vidHead: 'أداء حقيقي على قمم البحر الأبيض المتوسط',
-        vidCap: 'فيديو سينمائي تم تصويره على مسارات مرسيليا الصخرية: مساعدة كهربائية صامتة، عزم دوران 85 نيوتن متر وثبات فائق.',
-        g1Title: 'تصميم هيكل أسود غير لامع مع كروم',
-        g1Desc: 'هيكل ألومنيوم 6061 مخصص للطيران قابل لإعادة التدوير مع دمج متناسق للبطارية وطلاء مقاوم للخدوش.',
-        g2Title: 'قمرة قيادة CarPlay ومقابض تدفئة',
-        g2Desc: 'شاشة لمס OLED مقاس 5 بوصات مقاومة للماء مع نظام GPS ومزامنة مع الهاتف الذكي ومقابض تدفئة بثلاثة مستويات.',
-        featHead: 'التميز التكنولوجي مع كل حركة دواسة',
-        chatLbl: 'تحدث مع يوني',
-        welcome: 'مرحباً! أنا يوني، المستشار الرسمي لدراجة APEX E-Trail 900. تفضل بطرح أسئلتك حول مدى 180 كم، أو شاشة CarPlay أو التقسيط على 12 شهراً!'
+        dir: "rtl",
+        badge: "إصدار كالانك",
+        tag: "⚡ دراجة كهربائية جبلية فائقة الأداء لجميع التضاريس",
+        title: "سيطر على كل الطرق.<br>دون أي مساومة.",
+        sub: "هندسة رياضية ومستدامة: هيكل أسود غير لامع مع لمسات كروم مصقولة، مدى قيادة قياسي 180 كم، قمرة قيادة ذكية CarPlay مع نظام GPS ومقابض تدفئة.",
+        paypal: "الدفع على <strong>12 قسطاً بدون فوائد عبر PayPal</strong><br>فقط <strong>41.58 € شهرياً</strong>",
+        order: "اطلب الآن 499 €",
+        vidBadge: "أثناء القيادة في كالانك مرسيليا (1080p HD)",
+        vidHead: "أداء حقيقي على قمم البحر الأبيض المتوسط",
+        vidCap: "فيديو سينمائي تم تصويره على مسارات مرسيليا الصخرية: مساعدة كهربائية صامتة، عزم دوران 85 نيوتن متر وثبات فائق.",
+        g1Title: "تصميم هيكل أسود غير لامع مع كروم",
+        g1Desc: "هيكل ألومنيوم 6061 مخصص للطيران قابل لإعادة التدوير مع دمج متناسق للبطارية وطلاء مقاوم للخدوش.",
+        g2Title: "قمرة قيادة CarPlay ومقابض تدفئة",
+        g2Desc: "شاشة لمس OLED مقاس 5 بوصات مقاومة للماء مع نظام GPS ومزامنة مع الهاتف الذكي ومقابض تدفئة بثلاثة مستويات.",
+        featHead: "التميز التكنولوجي مع كل حركة دواسة",
+        f1t: "مدى قياسي 180 كم",
+        f1d: "بطارية LG عالية الكثافة 48V 25Ah (1200Wh). انطلق لأيام دون القلق بشأن الشحن.",
+        f2t: "قمرة قيادة ذكية CarPlay",
+        f2d: "شاشة OLED ملونة 5 بوصات مقاومة للماء مع خرائط GPS حية ومزامنة الهاتف.",
+        f3t: "مقابض تدفئة مدمجة",
+        f3d: "نظام تدفئة منظم بثلاثة مستويات حرارة للتحكم المباشر من المقود في الطقس البارد.",
+        f4t: "عزم قوي 85 نيوتن متر",
+        f4d: "محرك وسطي ذكي بمستشعر عزم لصعود أصعب المنحدرات بكل سهولة وسلاسة.",
+        f5t: "هيكل أسود مطفي وكروم",
+        f5d: "ألومنيوم 6061 قابل لإعادة التدوير 100%. مظهر رياضي جريء وأقصى متانة.",
+        f6t: "499 € على 12 قسطاً بدون فوائد",
+        f6d: "سعر المصنع مباشرة دون وسطاء. ادفع بسهولة على 12 شهراً بقيمة 41.58 € عبر PayPal.",
+        specsTitle: "المواصفات الفنية الكاملة",
+        s1k: "الهيكل والطلاء", s1v: "ألومنيوم 6061 T6 مقوى، أسود غير لامع مع كروم مصقول",
+        s2k: "البطارية والقدرة", s2v: "LG Li-ion 48V 25Ah (1200Wh) قابلة للإزالة بمفتاح أمان",
+        s3k: "مدى البطارية", s3v: "حتى 180 كم (الوضع الاقتصادي) / 115 كم (الاستخدام الجبلي القاسي)",
+        s4k: "قمرة المقود", s4v: "شاشة لمس OLED مقاس 5 بوصات بنظام CarPlay مع ملاحة GPS",
+        s5k: "مقابض التدفئة", s5v: "مقابض تدفئة مريحة مدمجة بـ 3 درجات حرارة",
+        s6k: "الفرامل والإطارات", s6v: "فرامل هيدروليكية Shimano 4 مكابس / إطارات Maxxis 29\" x 2.4\"",
+        s7k: "نظام التعليق", s7v: "شوكة هوائية بمسافة 140 مم مع قفل تحكم",
+        s8k: "الوزن والضمان", s8v: "19.8 كجم (شامل البطارية) • ضمان 5 سنوات للهيكل، وسنتين للمكونات",
+        chatLbl: "تحدث مع يوني",
+        chatStatus: "● المستشار الرسمي متصل",
+        welcome: "مرحباً! أنا يوني، المستشار الرسمي لدراجة APEX E-Trail 900. تفضل بطرح أسئلتك حول مدى 180 كم، أو شاشة CarPlay أو التقسيط على 12 شهراً!",
+        chip1: "مدى البطارية؟", chip2: "شاشة CarPlay؟", chip3: "مقابض التدفئة؟", chip4: "التقسيط 12 قسطاً؟",
+        placeholder: "اطرح سؤالاً على يوني...",
+        footer: "© 2026 APEX E-TRAIL. جميع الحقوق محفوظة."
       }
     };
 
@@ -756,22 +886,64 @@
       const cur = i18n[lang] || i18n.fr;
       document.documentElement.lang = lang;
       document.documentElement.dir = cur.dir;
+
+      // Update badge & hero
       document.getElementById('lbl-badge').textContent = cur.badge;
       document.getElementById('hero-tag').textContent = cur.tag;
       document.getElementById('hero-title').innerHTML = cur.title;
       document.getElementById('hero-sub').textContent = cur.sub;
       document.getElementById('paypal-text').innerHTML = cur.paypal;
       document.getElementById('btn-order').textContent = cur.order;
+
+      // Video
       document.getElementById('vid-badge-txt').textContent = cur.vidBadge;
       document.getElementById('vid-heading').textContent = cur.vidHead;
       document.getElementById('vid-caption').textContent = cur.vidCap;
+
+      // Gallery
       document.getElementById('g1-title').textContent = cur.g1Title;
       document.getElementById('g1-desc').textContent = cur.g1Desc;
       document.getElementById('g2-title').textContent = cur.g2Title;
       document.getElementById('g2-desc').textContent = cur.g2Desc;
+
+      // Features
       document.getElementById('feat-heading').textContent = cur.featHead;
+      document.getElementById('f1-t').textContent = cur.f1t;
+      document.getElementById('f1-d').textContent = cur.f1d;
+      document.getElementById('f2-t').textContent = cur.f2t;
+      document.getElementById('f2-d').textContent = cur.f2d;
+      document.getElementById('f3-t').textContent = cur.f3t;
+      document.getElementById('f3-d').textContent = cur.f3d;
+      document.getElementById('f4-t').textContent = cur.f4t;
+      document.getElementById('f4-d').textContent = cur.f4d;
+      document.getElementById('f5-t').textContent = cur.f5t;
+      document.getElementById('f5-d').textContent = cur.f5d;
+      document.getElementById('f6-t').textContent = cur.f6t;
+      document.getElementById('f6-d').textContent = cur.f6d;
+
+      // Specs
+      document.getElementById('specs-title').textContent = cur.specsTitle;
+      document.getElementById('s1-k').textContent = cur.s1k; document.getElementById('s1-v').textContent = cur.s1v;
+      document.getElementById('s2-k').textContent = cur.s2k; document.getElementById('s2-v').textContent = cur.s2v;
+      document.getElementById('s3-k').textContent = cur.s3k; document.getElementById('s3-v').textContent = cur.s3v;
+      document.getElementById('s4-k').textContent = cur.s4k; document.getElementById('s4-v').textContent = cur.s4v;
+      document.getElementById('s5-k').textContent = cur.s5k; document.getElementById('s5-v').textContent = cur.s5v;
+      document.getElementById('s6-k').textContent = cur.s6k; document.getElementById('s6-v').textContent = cur.s6v;
+      document.getElementById('s7-k').textContent = cur.s7k; document.getElementById('s7-v').textContent = cur.s7v;
+      document.getElementById('s8-k').textContent = cur.s8k; document.getElementById('s8-v').textContent = cur.s8v;
+
+      // Chatbot
       document.getElementById('chat-toggle-lbl').textContent = cur.chatLbl;
+      document.getElementById('chat-status').textContent = cur.chatStatus;
       document.getElementById('bot-hello').textContent = cur.welcome;
+      document.getElementById('chip-1').textContent = cur.chip1;
+      document.getElementById('chip-2').textContent = cur.chip2;
+      document.getElementById('chip-3').textContent = cur.chip3;
+      document.getElementById('chip-4').textContent = cur.chip4;
+      document.getElementById('chatIn').placeholder = cur.placeholder;
+
+      // Footer
+      document.getElementById('footer-text').textContent = cur.footer;
     }
 
     function toggleChatbot() {
@@ -793,13 +965,13 @@
       setTimeout(() => {
         let answer = "Je suis Yoni, à votre écoute ! N'hésitez pas à me poser vos questions sur l'autonomie (180 km), le smart cockpit CarPlay, les poignées chauffantes ou le paiement en 12x PayPal (41,58 €/mois).";
         const query = val.toLowerCase();
-        if (query.includes('auto') || query.includes('batter') || query.includes('range') || query.includes('km')) {
+        if (query.includes('auto') || query.includes('batter') || query.includes('range') || query.includes('km') || query.includes('טווח') || query.includes('بطارية')) {
           answer = "L'APEX E-Trail 900 offre une autonomie record de <strong>180 km</strong> grâce à sa batterie haute densité LG 48V 25Ah (1200Wh) amovible sous clé. Temps de charge rapide : 3h30 !";
-        } else if (query.includes('carplay') || query.includes('gps') || query.includes('guidon') || query.includes('ecran') || query.includes('écran')) {
+        } else if (query.includes('carplay') || query.includes('gps') || query.includes('guidon') || query.includes('ecran') || query.includes('écran') || query.includes('מסך') || query.includes('شاشة')) {
           answer = "Le cockpit intègre un écran tactile couleur OLED 5 pouces étanche IP67 style <strong>CarPlay</strong> avec GPS cartographique temps réel, synchronisation smartphone iOS/Android, altimètre et suivi de batterie.";
-        } else if (query.includes('chauff') || query.includes('poign') || query.includes('froid') || query.includes('grip')) {
+        } else if (query.includes('chauff') || query.includes('poign') || query.includes('froid') || query.includes('grip') || query.includes('ידיות') || query.includes('تدفئة')) {
           answer = "Le guidon est doté de <strong>poignées chauffantes thermo-régulées</strong> avec 3 niveaux d'intensité réglables via un bouton au guidon. Vos mains restent chaudes et réactives en plein hiver !";
-        } else if (query.includes('paypal') || query.includes('12x') || query.includes('prix') || query.includes('pay') || query.includes('combien')) {
+        } else if (query.includes('paypal') || query.includes('12x') || query.includes('prix') || query.includes('pay') || query.includes('תשלום') || query.includes('تقسيط')) {
           answer = "Le tarif de lancement est de <strong>499 €</strong> (au lieu de 1 299 €). Vous pouvez régler en <strong>12 mensualités de 41,58 € sans frais via PayPal</strong> avec livraison offerte en 48h partout en Europe.";
         } else if (query.includes('livraison') || query.includes('garantie') || query.includes('sav')) {
           answer = "Livraison offerte et suivie sous 48h. Le cadre aluminium est garanti 5 ans, et tous les composants électriques sont garantis 2 ans avec retour gratuit sous 30 jours.";
